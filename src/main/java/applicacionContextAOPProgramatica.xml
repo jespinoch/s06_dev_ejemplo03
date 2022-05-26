@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<bean id="loggingAspectoXml" class="com.cjavaperu.xml.aspecto.LoggingAspectoXml" />
+	
+	<bean id="personaDaoImpl" class="com.cjavaperu.dao.PersonaDaoImpl" />
+
+	<bean id="loggingAspectoAfter" class="com.cjavaperu.programatica.xml.aspecto.LoggingAspectoAfter" />
+	<bean id="loggingAspectoAround" class="com.cjavaperu.programatica.xml.aspecto.LoggingAspectoAround" />
+	<bean id="loggingAspectoBefore" class="com.cjavaperu.programatica.xml.aspecto.LoggingAspectoBefore" />
+	<bean id="loggingAspectoThrows" class="com.cjavaperu.programatica.xml.aspecto.LoggingAspectoThrows" />
+
+	<bean id="customerServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="personaDaoImpl" />
+		<property name="interceptorNames">
+			<list>
+				<value>loggingAspectoAfter</value>
+                                <value>loggingAspectoBefore</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>
